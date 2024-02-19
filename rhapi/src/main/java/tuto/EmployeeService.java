@@ -1,4 +1,4 @@
-package tuto.rhapi;
+package tuto;
 
 import java.util.Optional;
 

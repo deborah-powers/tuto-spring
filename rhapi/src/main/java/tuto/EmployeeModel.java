@@ -1,4 +1,4 @@
-package tuto.rhapi;
+package tuto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

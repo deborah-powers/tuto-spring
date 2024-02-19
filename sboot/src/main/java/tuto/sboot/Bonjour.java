@@ -10,9 +10,11 @@ public class Bonjour implements CommandLineRunner {
 
 	@Autowired
 	private BonjourService ecc;
+    @Autowired
+    private CustomProperty propriete;
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("HELLOOOOW !!");
+		System.out.println("HELLOOOOW !! "+ propriete.getMessage());
 		BonjourModel message = ecc.getMessage();
 		System.out.println(message);
 	}

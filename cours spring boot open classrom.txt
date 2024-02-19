@@ -1,0 +1,201 @@
+Sujet:	programmation
+Lien:	https://openclassrooms.com/fr/courses/6900101-creez-une-application-java-avec-spring-boot/7077979-creez-votre-projet
+Auteur:	romain seza
+Autlink:	o
+Date: 2024/02
+
+
+============ Présentation ============
+
+Spring-boot est un framework pour développer des appli web aussi facilement que des projets java basiques.
+Il est constitué en modules (starters).
+Spring-boot-starter
+Spring-boot-starter-core
+Spring-boot-starter-data-jpa
+Spring-boot-starter-security
+Spring-boot-starter-test
+Spring-boot-starter-web
+
+============ Lexique ============
+
+Ioc container: Truc qui gère les objets java et leur cycle de vie. Inversion of control.
+Bean: Classe java gérée par spring. Annotée par @component.
+Entity: Bean qui représente une table en base de donnée. Annotée par @entity.
+Version de maven utilisée: 3.6.3
+Window / préférences / maven / installations
+Version de java utilisée: Jdk 1.8
+Window / préférences / java / installed jre
+Localisation du projet:
+C:/users/deborah.powers/eclipse-workspace/spring
+Projet explorer / clique droit sur mon projet / show in / system explorer
+
+============ Initialisation ============
+
+Création avec spring-initializer
+https://start.spring.io/
+Le dépaqueter dans c:/users/deborah.powers/eclipse-workspace/
+Attention, spring-initializer ne créé plus de projet avec java 8.
+Il faut modifier manuellement le pom.
+<java.version>8</java.version>
+<artifactid>spring-boot-starter-parent</artifactid><version>2.7.9</version>
+Faire un maven update
+Faire un maven clean install
+Lancer l'appli:
+Application.java / clique droit / run as java application
+
+============ Structure minimale ============
+
+https://openclassrooms.com/fr/courses/6900101-creez-une-application-java-avec-spring-boot/7077985-observez-la-structure-minimale
+
+Src/main/java/application.java
+Classe principale contenant main, annotée @springbootapplication.
+Src/main/ressources/application.properties
+Spring-boot lit tout seul les fichiers xxx.properties.
+Src/test/java/
+Springbootapplication combine les fonctions de trois annotations:
+	Springbootconfiguration, pour les classes de configuration
+	Enableautoconfiguration
+	Componentscan, indique qu'il faut rechercher des classes annotées
+
+============ Bonnes pratiques pour étoffer la structure ============
+
+Couche controller: Gérer les interrations entre l'utilisateur et l'appli.
+Couche service: Fonctionnement de l'appli.
+Couche repository: Interragir avec les bases de données, les sources de données.
+Couche modèle: Gérer les objets manipulés par les autres couches.
+Chaque couche correspond à un package dans scr/main/java.
+
+============ Premier code ! Ecrire dans la console ============
+
+Classe service/ecritdansconsole
+Il est possible de modifier application afin d'y mettre le code, mais il est conseillé de laisser main tranquille et de mettre mon code ailleur.
+
+============ Tester mon code ============
+
+Dans /spring/src/test/java/tuto/spring/
+@springboottest pour charger le contexte spring, les machins spring, lors des tests.
+Lancer les tests:
+Mon projet / clique droit / run as / maven test
+
+============ Déployer mon code ============
+
+L'environnement d'execution doit contenir un jre.
+Run as / maven configuration
+Goal: Spring-boot: Run
+
+============ Créer une api ============
+
+https://openclassrooms.com/fr/courses/6900101-creez-une-application-java-avec-spring-boot/7078007-creez-lapi-avec-les-bons-starters
+https://github.com/OpenClassrooms-Student-Center/HR-Association/blob/master/api/src
+
+************ Dans le pom ************
+
+Spring-boot-starter-web, communiquer avec les autres aplli. Gérer les endpoints.
+Spring-boot-starter-data-jpa, gérer la persitence des données
+Dépendence de la bdd, h2 dans le tutoriel.
+
+************ Utiliser h2 ************
+
+https://apero-tech.fr/utiliser-une-base-h2-avec-springboot/
+Dans application.properties, rajouter les configurations pour utiliser h2.
+dans src/main/ressourses, rajouter les fichiers shema.sql et data.sql.
+
+dans les logs, repérer la ligne
+o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2'. Database available at 'jdbc:h2:mem:demo'
+dans mon navigateur, entrer http://localhost:1407/h2/
+le gestionnaire de base h2 apparait.
+jdbc url: jdbc:h2:mem:demo
+password: celui précisé dans application.properties.
+
+************ gérer les données selon le principe rest ************
+
+créer les classes.
+
+Couche		Objectif
+controller	Réceptionner la requête et fournir la réponse
+service		Exécuter les traitements métiers
+repository	Communiquer avec la source de données
+model		Contenir les objets métiers
+
+annotations pour les endpoints: @GetMapping, @PostMapping, @PatchMapping, @PutMapping, @DeleteMapping, @RequestMapping.
+
+@RequestMapping(value = "/employees", method = RequestMethod.GET)
+@GetMapping("/employees")
+
+************ tester mon api ************
+
+https://openclassrooms.com/fr/courses/6900101-creez-une-application-java-avec-spring-boot/7078023-testez-votre-api-avec-spring-boot
+les tu du controller
+@WebMvcTest(controllers = EmployeeController.class)
+EmployeeControllerTest
+ce tu mime le controller et l'appli appelante.
+get("/employees") fait une requête get sur l'url /employees, comme quand je tape l'url dans mon navigateur.
+
+les ti
+EmployeeTi mime l'appel d'une appli. toutes les classes sont mises en jeux.
+@SpringBootTest et @AutoConfigureMockMvc chargent toutes les classes, le contexte.
+
+
+============ créer un site web ============
+
+https://openclassrooms.com/fr/courses/6900101-creez-une-application-java-avec-spring-boot/7078033-configurez-et-structurez-votre-projet-avec-des-packages
+https://github.com/OpenClassrooms-Student-Center/HR-Association/blob/master/webapp/src
+
+il communiquera avec mon api. il est organisé selon le modèle mvc.
+l'utilisateur envoie une requête au controller. celui-ci récupère les données auprès du modèle et créer la vue, qu'il renvoi à l'utilisateur.
+RestTemplate échange avec l'api rest et transforme le résultat json en objet java.
+ResponseEntity<Retour> response = restTemplate.exchange(url, HttpMethod.PUT, params, Retour.class);
+
+https://openclassrooms.com/fr/courses/6900101-creez-une-application-java-avec-spring-boot/7078034-ecrivez-votre-code
+
+
+
+============ Erreurs ============
+
+
+j'ai déjà créé l'entity employee.
+le script data.sql créé et rempli la table employee.
+la table public.employee existe, mais elle est vide.
+l'entity créé une nouvelle table. en éffaçant la table remplie créée par data.sql.
+
+dans application.properties,
+# utiliser les scripts sql apres la creation de la table par l'entity
+spring.jpa.defer-datasource-initialization=true
+
+************************************************
+
+lors du maven install
+je veux créer un fichier H2 tuto-h2, qui n'existe pas.
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/deborah.powers/eclipse-workspace/spring/src/main/resources/tuto-h2.mv.db [2.1.214/7]
+remplacer l'initialisation via un fichier par l'initialisation à la volée.
+
+************************************************
+
+Lors du maven install
+[info] build failure
+[info] ------------
+
+[error] failed to execute goal org.apache.maven.plugins: Maven-resources-plugin: 3.2.0: Resources (default-resources) on project spring: Input length = 1 -> [help 1]
+Il y a des caratères non utf8 dans application.properties, comme des é ou des à. Il faut supprimer les accents, même dans les commentaires.
+
+************************************************
+
+Lors du spring-boot: Run
+Web server failed to start. Port 8080 was already in use.
+Dans application.properties
+Server.port= 1407
+
+************************************************
+
+Lors du spring-boot: Run
+j'utilise un port qui n'est utilisé que par mon appli. je viens de le faire tourner une première fois, qui a bien marché.
+
+Web server failed to start. Port 1404 was already in use.
+
+
+************************************************
+
+Lors du maven clean install
+An internal error occurred during: "launching executing clean in c__users_deborah.powers_eclipse-workspace_spring".
+Java.lang.nullpointerexception
+La version de spring-boot utilisée dans le pom est trop récente. Elle ne fonctionne pas avec java 8.
