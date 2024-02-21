@@ -53,10 +53,10 @@ public class EmployeeProxy{
 		return response.getBody();
 	}
 
-	public EmployeeModel updateEmployee(Long id, EmployeeModel employee){
+	public EmployeeModel updateEmployee(EmployeeModel employee){
 		String url = apiProp.getUrlEmployee();
-		url = url + id;
-		// url = url + employee.getId()
+		// si param id: url = url + id;
+		url = url + employee.getId();
 		restTemplate = new RestTemplate();
 		HttpEntity<EmployeeModel> request = new HttpEntity<EmployeeModel>(employee);
 		ResponseEntity<EmployeeModel> response = restTemplate.exchange(url, HttpMethod.PUT, request, EmployeeModel.class);

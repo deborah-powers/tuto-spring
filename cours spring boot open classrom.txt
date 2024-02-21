@@ -4,7 +4,6 @@ Auteur:	romain seza
 Autlink:	o
 Date: 2024/02
 
-
 ============ Présentation ============
 
 Spring-boot est un framework pour développer des appli web aussi facilement que des projets java basiques.
@@ -46,7 +45,6 @@ Application.java / clique droit / run as java application
 ============ Structure minimale ============
 
 https://openclassrooms.com/fr/courses/6900101-creez-une-application-java-avec-spring-boot/7077985-observez-la-structure-minimale
-
 Src/main/java/application.java
 Classe principale contenant main, annotée @springbootapplication.
 Src/main/ressources/application.properties
@@ -86,7 +84,8 @@ Goal: Spring-boot: Run
 ============ Créer une api ============
 
 https://openclassrooms.com/fr/courses/6900101-creez-une-application-java-avec-spring-boot/7078007-creez-lapi-avec-les-bons-starters
-https://github.com/OpenClassrooms-Student-Center/HR-Association/blob/master/api/src
+https://github.com/openclassrooms-student-center/hr-association/blob/master/api/src
+Projet rhapi
 
 ************ Dans le pom ************
 
@@ -98,76 +97,65 @@ Dépendence de la bdd, h2 dans le tutoriel.
 
 https://apero-tech.fr/utiliser-une-base-h2-avec-springboot/
 Dans application.properties, rajouter les configurations pour utiliser h2.
-dans src/main/ressourses, rajouter les fichiers shema.sql et data.sql.
+Dans src/main/ressourses, rajouter les fichiers shema.sql et data.sql.
+Dans les logs, repérer la ligne
+O.s.b.a.h2.h2consoleautoconfiguration: H2 console available at '/h2'. Database available at 'jdbc: H2: Mem: Demo'
+Dans mon navigateur, entrer http://localhost:1407/h2/
+Le gestionnaire de base h2 apparait.
+Jdbc url: Jdbc: H2: Mem: Demo
+Password: Celui précisé dans application.properties.
 
-dans les logs, repérer la ligne
-o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2'. Database available at 'jdbc:h2:mem:demo'
-dans mon navigateur, entrer http://localhost:1407/h2/
-le gestionnaire de base h2 apparait.
-jdbc url: jdbc:h2:mem:demo
-password: celui précisé dans application.properties.
+************ Gérer les données selon le principe rest ************
 
-************ gérer les données selon le principe rest ************
+Créer les classes.
+Couche		objectif
+Controller	réceptionner la requête et fournir la réponse
+Service		exécuter les traitements métiers
+Repository	communiquer avec la source de données
+Model		contenir les objets métiers
+Annotations pour les endpoints: @getmapping, @postmapping, @patchmapping, @putmapping, @deletemapping, @requestmapping.
+@requestmapping(value = "/employees", method = requestmethod.get)
+@getmapping("/employees")
 
-créer les classes.
-
-Couche		Objectif
-controller	Réceptionner la requête et fournir la réponse
-service		Exécuter les traitements métiers
-repository	Communiquer avec la source de données
-model		Contenir les objets métiers
-
-annotations pour les endpoints: @GetMapping, @PostMapping, @PatchMapping, @PutMapping, @DeleteMapping, @RequestMapping.
-
-@RequestMapping(value = "/employees", method = RequestMethod.GET)
-@GetMapping("/employees")
-
-************ tester mon api ************
+************ Tester mon api ************
 
 https://openclassrooms.com/fr/courses/6900101-creez-une-application-java-avec-spring-boot/7078023-testez-votre-api-avec-spring-boot
-les tu du controller
-@WebMvcTest(controllers = EmployeeController.class)
-EmployeeControllerTest
-ce tu mime le controller et l'appli appelante.
-get("/employees") fait une requête get sur l'url /employees, comme quand je tape l'url dans mon navigateur.
+Les tu du controller
+@webmvctest(controllers = employeecontroller.class)
+Employeecontrollertest
+Ce tu mime le controller et l'appli appelante.
+Get("/employees") fait une requête get sur l'url /employees, comme quand je tape l'url dans mon navigateur.
+Les ti
+Employeeti mime l'appel d'une appli. Toutes les classes sont mises en jeux.
+@springboottest et @autoconfiguremockmvc chargent toutes les classes, le contexte.
 
-les ti
-EmployeeTi mime l'appel d'une appli. toutes les classes sont mises en jeux.
-@SpringBootTest et @AutoConfigureMockMvc chargent toutes les classes, le contexte.
-
-
-============ créer un site web ============
+============ Créer un site web ============
 
 https://openclassrooms.com/fr/courses/6900101-creez-une-application-java-avec-spring-boot/7078033-configurez-et-structurez-votre-projet-avec-des-packages
-https://github.com/OpenClassrooms-Student-Center/HR-Association/blob/master/webapp/src
-
-il communiquera avec mon api. il est organisé selon le modèle mvc.
-l'utilisateur envoie une requête au controller. celui-ci récupère les données auprès du modèle et créer la vue, qu'il renvoi à l'utilisateur.
-RestTemplate échange avec l'api rest et transforme le résultat json en objet java.
-ResponseEntity<Retour> response = restTemplate.exchange(url, HttpMethod.PUT, params, Retour.class);
-
-https://openclassrooms.com/fr/courses/6900101-creez-une-application-java-avec-spring-boot/7078034-ecrivez-votre-code
-
-
+https://github.com/openclassrooms-student-center/hr-association/blob/master/webapp/src
+Projet rhweb
+Il communiquera avec mon api. Il est organisé selon le modèle mvc.
+L'utilisateur envoie une requête au controller. Celui-ci récupère les données auprès du modèle et créer la vue, qu'il renvoi à l'utilisateur.
+Resttemplate échange avec l'api rest et transforme le résultat json en objet java.
+Responseentity<retour> response = resttemplate.exchange(url, httpmethod.put, params, retour.class);
+https://openclassrooms.com/fr/courses/6900101-creez-une-application-java-avec-spring-boot/7078047-testez-et-deployez-votre-projet-web
 
 ============ Erreurs ============
 
-
-j'ai déjà créé l'entity employee.
-le script data.sql créé et rempli la table employee.
-la table public.employee existe, mais elle est vide.
-l'entity créé une nouvelle table. en éffaçant la table remplie créée par data.sql.
-
-dans application.properties,
+J'ai déjà créé l'entity employee.
+Le script data.sql créé et rempli la table employee.
+La table public.employee existe, mais elle est vide.
+L'entity créé une nouvelle table. En éffaçant la table remplie créée par data.sql.
+Dans application.properties,
 # utiliser les scripts sql apres la creation de la table par l'entity
-spring.jpa.defer-datasource-initialization=true
+Spring.jpa.defer-datasource-initialization=true
 
 ************************************************
 
-lors du maven install
-je veux créer un fichier H2 tuto-h2, qui n'existe pas.
-Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/deborah.powers/eclipse-workspace/spring/src/main/resources/tuto-h2.mv.db [2.1.214/7]
-remplacer l'initialisation via un fichier par l'initialisation à la volée.
+Lors du maven install
+Je veux créer un fichier h2 tuto-h2, qui n'existe pas.
+Caused by: Org.h2.mvstore.mvstoreexception: The file is locked: C:/users/deborah.powers/eclipse-workspace/spring/src/main/resources/tuto-h2.mv.db [2.1.214/7]
+Remplacer l'initialisation via un fichier par l'initialisation à la volée.
 
 ************************************************
 
@@ -188,10 +176,8 @@ Server.port= 1407
 ************************************************
 
 Lors du spring-boot: Run
-j'utilise un port qui n'est utilisé que par mon appli. je viens de le faire tourner une première fois, qui a bien marché.
-
+J'utilise un port qui n'est utilisé que par mon appli. Je viens de le faire tourner une première fois, qui a bien marché.
 Web server failed to start. Port 1404 was already in use.
-
 
 ************************************************
 

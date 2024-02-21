@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>accueil - rh</title>
+<meta name='viewport' content='width=device-width,initial-scale=1' />
+<meta charset='utf-8' />
+<link rel='stylesheet' type='text/css' href='style.css' />
+<style type='text/css'></style>
+</head>
+<body>
+	<h1>page d'accueil du site rh</h1>
+	<h2>liste des employés</h2>
+	<table>
+		<tr>
+			<th>prénom</th>
+			<th>nom</th>
+			<th>courriel</th>
+			<th></th>
+		</tr>
+		<tr th:if="${employees.empty}">
+			<!-- "${employees}" correspond à EmployeeController / model["employees"] -->
+			<td colspan="3">Aucun employée en base de données</td>
+		</tr>
+		<tr th:each="employee: ${employees}">
+			<td><span th:text="${employee.firstName}"> Prénom </span></td>
+			<td><span th:text="${employee.lastName}"> Nom </span></td>
+			<td><span th:text="${employee.mail}"> Courriel </span></td>
+			<td><a th:href="@{/deleteEmployee/{id}(id=${employee.id})}">Supprimer</a></td>
+		</tr>
+	</table>
+	<form method="post" th:action="@{/saveEmployee}" th:object="${employee}">
+		<h2>créer un employer</h2>
+		<span>prénom</span><input type="text" th:field="*{firstName}">
+		<span>nom</span><input type="text" th:field="*{lastName}">
+		<span>courriel</span><input type="text" th:field="*{mail}">
+		<span>mot de passe</span><input type="password" th:field="*{password}">
+		<button type="submit">Créer</button>
+	</form>
+</body>
+</html>

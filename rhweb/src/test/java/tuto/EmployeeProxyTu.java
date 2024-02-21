@@ -23,12 +23,12 @@ public class EmployeeProxyTu {
 
     @Test
     public void testGetEmployees() throws Exception {
-    	Iterable<Employee> empoyees = proxy.getEmployees();
+    	Iterable<EmployeeModel> empoyees = proxy.getEmployees();
     }
     @Test
     public void testGetEmployee() throws Exception {
     	Long id=2L;
-    	Employee empoyee = proxy.getEmployee(id);
+    	EmployeeModel empoyee = proxy.getEmployee(id);
         assertEquals("Sophie", empoyee.getFirstName());
         assertEquals("FONCEK", empoyee.getLastName());
     }
