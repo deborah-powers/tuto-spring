@@ -15,6 +15,47 @@ Spring-boot-starter-security
 Spring-boot-starter-test
 Spring-boot-starter-web
 
+mon jdk
+C:\dev\synergie\app\java\jdk1.8.0_65
+
+============ le logging ============
+
+https://www.jmdoudoux.fr/java/dej/chap-logging.htm
+https://docs.oracle.com/javase/8/docs/api/java/util/logging/SimpleFormatter.html
+https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/logging/java/SimpleFormatter.html
+https://www.geeksforgeeks.org/simpleformatter-in-java-logging-api/
+https://commons.apache.org/proper/commons-logging/
+https://cwiki.apache.org/confluence/display/commons/Logging
+https://stackoverflow.com/questions/2317983/how-to-disable-stack-trace-generation-in-a-java-program
+http://www.java2s.com/Code/Java/Language-Basics/UseLoggerwithsimpleformatterandFileHandler.htm
+https://stackoverflow.com/questions/8492112/use-custom-class-for-spring-logging
+https://commons.apache.org/proper/commons-logging/guide.html#Creating%20a%20Log%20Implementation
+https://techdatafuture.com/en_article?id=a4c869fa-da5e-44f0-9547-b4437620b7f3
+
+https://stackoverflow.com/questions/31172802/logging-config-configuration-for-spring-boot
+System.setProperty("logging.config", "classpath:portal-log4j2.yaml");
+CONSOLE_LOG_PATTERN
+
+C:\dev\synergie\app\java\jdk1.8.0_65\jre\lib\logging.properties
+
+*** logging de java ***
+
+https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.logging.custom-log-configuration
+https://github.com/spring-projects/spring-boot/blob/v3.2.3/spring-boot-project/spring-boot/src/main/resources/org/springframework/boot/logging/java/logging-file.properties
+
+
+
+*** avec lombok ***
+
+https://www.slf4j.org/api/org/slf4j/Logger.html
+
+@Slf4j
+MaClasse{
+	maFonction(){
+	log.debug ("coucou");
+}}
+log correspond au type org.slf4j.Logger
+
 ============ Lexique ============
 
 Ioc container: Truc qui gère les objets java et leur cycle de vie. Inversion of control.
@@ -140,6 +181,7 @@ Resttemplate échange avec l'api rest et transforme le résultat json en objet j
 Responseentity<retour> response = resttemplate.exchange(url, httpmethod.put, params, retour.class);
 https://openclassrooms.com/fr/courses/6900101-creez-une-application-java-avec-spring-boot/7078047-testez-et-deployez-votre-projet-web
 
+
 ============ Erreurs ============
 
 J'ai déjà créé l'entity employee.
@@ -185,3 +227,11 @@ Lors du maven clean install
 An internal error occurred during: "launching executing clean in c__users_deborah.powers_eclipse-workspace_spring".
 Java.lang.nullpointerexception
 La version de spring-boot utilisée dans le pom est trop récente. Elle ne fonctionne pas avec java 8.
+
+************************************************
+
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/C:/Users/deborah.powers/.m2/repository/ch/qos/logback/logback-classic/1.2.11/logback-classic-1.2.11.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/C:/Users/deborah.powers/.m2/repository/org/apache/logging/log4j/log4j-slf4j-impl/2.17.2/log4j-slf4j-impl-2.17.2.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]

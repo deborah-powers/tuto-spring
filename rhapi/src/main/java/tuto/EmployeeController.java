@@ -1,5 +1,6 @@
 package tuto;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.extern.slf4j.Slf4j;
+
 /*
  * contient les endpoints de l'api. l'appli appelant cette api doit utiliser les fonctions précisées ici.
  */
 /* annotation de spring indiquant que la classe est un bean.
 elle précise que nous utilisons la méthode rest, qui renvoi ses résultats au format json.
 */
+@Slf4j
 @RestController
 public class EmployeeController {
 	/*
@@ -36,9 +40,15 @@ public class EmployeeController {
 	 */
 	@GetMapping("/employees")
 	public Iterable<EmployeeModel> getEmployees() {
-		return employeeService.getEmployees();
+		log.debug("coucou");
+		try {
+			return employeeService.getEmployees();
+		}
+		catch(Exception exp) {
+			log.error(exp.getMessage());
+			return Arrays.asList(new EmployeeModel(), new EmployeeModel());
+		}
 	}
-
 	@GetMapping("/employee/{id}")
 	public EmployeeModel getEmployee(@PathVariable("id") final Long id) {
 		Optional<EmployeeModel> employee = employeeService.getEmployee(id);

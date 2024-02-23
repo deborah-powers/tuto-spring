@@ -12,9 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 //charger le nécessaire pour tester
-@SpringBootTest
-@AutoConfigureMockMvc
+@SpringBootTest			// charger spring
+@AutoConfigureMockMvc	// échanger avec le controlleur
 public class EmployeeTi {
+	// échanger avec le controlleur
 	@Autowired
     private MockMvc mockMvc;
 

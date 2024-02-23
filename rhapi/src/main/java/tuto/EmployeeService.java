@@ -21,8 +21,9 @@ public class EmployeeService {
         return employeeRepository.findById(id);
     }
 
-    public Iterable<EmployeeModel> getEmployees() {
-        return employeeRepository.findAll();
+    public Iterable<EmployeeModel> getEmployees() throws Exception {
+		throw new Exception();
+       // return employeeRepository.findAll();
     }
 
     public void deleteEmployee(final Long id) {

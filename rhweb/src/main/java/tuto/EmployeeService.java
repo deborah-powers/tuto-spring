@@ -20,7 +20,8 @@ public class EmployeeService{
 	public EmployeeModel saveEmployee(EmployeeModel employee){
 		EmployeeModel savedEmployee;
 		// Règle de gestion : Le nom de famille doit être mis en majuscule.
-		employee.setLastName(employee.getLastName().toUpperCase());
+		if (employee.getLastName() != null)
+			employee.setLastName(employee.getLastName().toUpperCase());
 		if (employee.getId() == null)
 			savedEmployee = proxy.createEmployee(employee);
 		else
