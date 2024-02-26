@@ -38,10 +38,8 @@ public class EmployeeController {
 	 *             utiliser l'url http://localhost:1407/employees
 	 */
 	@GetMapping("/employees")
-	public Iterable<EmployeeModel> getEmployees() throws Exception {
-		log.debug("coucou");
-		throw new Exception();
-	//	return employeeService.getEmployees();
+	public Iterable<EmployeeModel> getEmployees() {
+		return employeeService.getEmployees();
 	}
 	@GetMapping("/employee/{id}")
 	public EmployeeModel getEmployee(@PathVariable("id") final Long id) {

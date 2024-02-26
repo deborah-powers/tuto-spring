@@ -1,4 +1,4 @@
-package logger;
+package tuto;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

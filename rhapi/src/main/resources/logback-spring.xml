@@ -2,7 +2,7 @@
 <configuration>
 	<appender name="Console"
 		class="ch.qos.logback.core.ConsoleAppender">
-		<layout class="logger.DebLayout">
+		<layout class="tuto.DebLayout">
 			<Pattern>lolo %5p %c{1} %M [%L]:\t%msg%n</Pattern>
 		</layout>
 	</appender>
