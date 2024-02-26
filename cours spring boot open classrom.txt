@@ -17,6 +17,7 @@ Spring-boot-starter-web
 
 mon jdk
 C:\dev\synergie\app\java\jdk1.8.0_65
+C:/Users/deborah.powers/.m2/repository/
 
 ============ le logging ============
 

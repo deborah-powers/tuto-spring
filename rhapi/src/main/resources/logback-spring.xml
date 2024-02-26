@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="Console"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="logger.DebLayout">
+			<Pattern>lolo %5p %c{1} %M [%L]:\t%msg%n</Pattern>
+		</layout>
+	</appender>
+	<root level="warn"><appender-ref ref="Console" /></root>
+	<logger name="tuto" level="debug" additivity="false"><appender-ref ref="Console" /></logger>
+	<logger name="org.springframework.boot.autoconfigure.h2" level="info" additivity="false">
+		<!-- afficher l'url de la base dans la console -->
+		<appender-ref ref="Console" />
+	</logger>
+	<logger name="org.springframework.boot.web.embedded.tomcat" level="info" additivity="false">
+		<!-- afficher l'url de tomcat dans la console -->
+		<appender-ref ref="Console" />
+	</logger>
+</configuration>

@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.extern.slf4j.Slf4j;
+
 /*
  * contient les endpoints de l'api. l'appli appelant cette api doit utiliser les fonctions précisées ici.
  */
 /* annotation de spring indiquant que la classe est un bean.
 elle précise que nous utilisons la méthode rest, qui renvoi ses résultats au format json.
 */
+@Slf4j
 @RestController
 public class EmployeeController {
 	/*
@@ -35,8 +38,10 @@ public class EmployeeController {
 	 *             utiliser l'url http://localhost:1407/employees
 	 */
 	@GetMapping("/employees")
-	public Iterable<EmployeeModel> getEmployees() {
-			return employeeService.getEmployees();
+	public Iterable<EmployeeModel> getEmployees() throws Exception {
+		log.debug("coucou");
+		throw new Exception();
+	//	return employeeService.getEmployees();
 	}
 	@GetMapping("/employee/{id}")
 	public EmployeeModel getEmployee(@PathVariable("id") final Long id) {
