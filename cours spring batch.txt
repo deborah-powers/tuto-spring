@@ -1,0 +1,49 @@
+Sujet:	programmation
+Lien:	https://gkemayo.developpez.com/tutoriels/java/tutoriel-sur-mise-oeuvre-spring-batch-avec-spring-boot/#lv
+Auteur:	gkemayo
+Autlink:	o
+Date: 2024/02
+
+
+============ Présentation ============
+
+https://spring.io/projects/spring-batch
+https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto.batch
+https://www.baeldung.com/introduction-to-spring-batch
+Tuto qui ne marche pas: https://spring.io/guides/gs/batch-processing
+Base h2 comme job repository
+j'ai fini par m'inspirer de ce qui à été fait sur cdm.
+
+
+	private List<String[]> readCsvFile(String fileName){
+		try {
+			FileReader fileReader = new FileReader(fileName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			List<String[]> records = new ArrayList<>();
+			String line;
+			while ((line = bufferedReader.readLine()) != null) {
+				String[] values = line.split(";");
+				records.add(values);
+			}
+			bufferedReader.close();
+			return records;
+		} catch (FileNotFoundException exception) {
+			log.error("le fichier n'a pas été trouvé: " + fileName);
+			return null;
+		} catch (IOException exception) {
+			log.error("le fichier est illisible: " + fileName);
+			return null;
+		}
+	}
+
+============ Erreurs ============
+
+Lancement en échec
+
+Parameter 0 of method jobA in tuto.BatchConfig required a bean of type 'tuto.CompletionListener' that could not be found.
+
+dans CompletionListener, rajouter l'annotation @Component.
+import org.springframework.stereotype.Component;
+
+selon ce qui est noté dans ma config / context, l'objet peut aussi être une interface de spring, comme JobExecutionListener.
+dans ce cas, je rajoute l'annotation à mon implémentation perso.

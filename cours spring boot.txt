@@ -14,61 +14,25 @@ Spring-boot-starter-data-jpa
 Spring-boot-starter-security
 Spring-boot-starter-test
 Spring-boot-starter-web
-
-mon jdk
-C:\dev\synergie\app\java\jdk1.8.0_65
-C:/Users/deborah.powers/.m2/repository/
-
-============ le logging ============
-
-https://www.jmdoudoux.fr/java/dej/chap-logging.htm
-https://docs.oracle.com/javase/8/docs/api/java/util/logging/SimpleFormatter.html
-https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/logging/java/SimpleFormatter.html
-https://www.geeksforgeeks.org/simpleformatter-in-java-logging-api/
-https://commons.apache.org/proper/commons-logging/
-https://cwiki.apache.org/confluence/display/commons/Logging
-https://stackoverflow.com/questions/2317983/how-to-disable-stack-trace-generation-in-a-java-program
-http://www.java2s.com/Code/Java/Language-Basics/UseLoggerwithsimpleformatterandFileHandler.htm
-https://stackoverflow.com/questions/8492112/use-custom-class-for-spring-logging
-https://commons.apache.org/proper/commons-logging/guide.html#Creating%20a%20Log%20Implementation
-https://techdatafuture.com/en_article?id=a4c869fa-da5e-44f0-9547-b4437620b7f3
-
-https://stackoverflow.com/questions/31172802/logging-config-configuration-for-spring-boot
-System.setProperty("logging.config", "classpath:portal-log4j2.yaml");
-CONSOLE_LOG_PATTERN
-
-C:\dev\synergie\app\java\jdk1.8.0_65\jre\lib\logging.properties
-
-*** logging de java ***
-
-https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.logging.custom-log-configuration
-https://github.com/spring-projects/spring-boot/blob/v3.2.3/spring-boot-project/spring-boot/src/main/resources/org/springframework/boot/logging/java/logging-file.properties
-
-
-
-*** avec lombok ***
-
-https://www.slf4j.org/api/org/slf4j/Logger.html
-
-@Slf4j
-MaClasse{
-	maFonction(){
-	log.debug ("coucou");
-}}
-log correspond au type org.slf4j.Logger
+Version de maven utilisée: 3.6.3
+Window / préférences / maven / installations
+Version de java utilisée: Jdk 1.8
+C:/dev/synergie/app/java/jdk1.8.0_65
+Window / préférences / java / installed jre
+Localisation du projet:
+C:/users/deborah.powers/eclipse-workspace/spring
+Projet explorer / clique droit sur mon projet / show in / system explorer
+C:/users/deborah.powers/.m2/repository/
 
 ============ Lexique ============
 
 Ioc container: Truc qui gère les objets java et leur cycle de vie. Inversion of control.
 Bean: Classe java gérée par spring. Annotée par @component.
 Entity: Bean qui représente une table en base de donnée. Annotée par @entity.
-Version de maven utilisée: 3.6.3
-Window / préférences / maven / installations
-Version de java utilisée: Jdk 1.8
-Window / préférences / java / installed jre
-Localisation du projet:
-C:/users/deborah.powers/eclipse-workspace/spring
-Projet explorer / clique droit sur mon projet / show in / system explorer
+@springbootapplication: Annotation qui combine les actions de trois annotations:
+@configuration: La classe devient une classe de configuration. Elle permet de charger le contexte de spring et de définir les beans ??
+@enableautoconfiguration: Indique à spring boot de regarder dans le classpath. Sb va attribuer à cette classe et à l'appli dont elle est le coeur les propriétés associées aux dépendances.
+@componentscan: Spring-boot doit rechercher d'autres éléments importants, comme des classe de config, des components, des controllers, etc.
 
 ============ Initialisation ============
 
@@ -180,8 +144,39 @@ Il communiquera avec mon api. Il est organisé selon le modèle mvc.
 L'utilisateur envoie une requête au controller. Celui-ci récupère les données auprès du modèle et créer la vue, qu'il renvoi à l'utilisateur.
 Resttemplate échange avec l'api rest et transforme le résultat json en objet java.
 Responseentity<retour> response = resttemplate.exchange(url, httpmethod.put, params, retour.class);
-https://openclassrooms.com/fr/courses/6900101-creez-une-application-java-avec-spring-boot/7078047-testez-et-deployez-votre-projet-web
 
+============ Le logging ============
+
+https://www.jmdoudoux.fr/java/dej/chap-logging.htm
+https://docs.oracle.com/javase/8/docs/api/java/util/logging/simpleformatter.html
+https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/logging/java/simpleformatter.html
+https://www.geeksforgeeks.org/simpleformatter-in-java-logging-api/
+https://commons.apache.org/proper/commons-logging/
+https://cwiki.apache.org/confluence/display/commons/logging
+https://stackoverflow.com/questions/2317983/how-to-disable-stack-trace-generation-in-a-java-program
+http://www.java2s.com/code/java/language-basics/useloggerwithsimpleformatterandfilehandler.htm
+https://stackoverflow.com/questions/8492112/use-custom-class-for-spring-logging
+https://commons.apache.org/proper/commons-logging/guide.html#creating%20a%20log%20implementation
+https://techdatafuture.com/en_article?id=a4c869fa-da5e-44f0-9547-b4437620b7f3
+https://stackoverflow.com/questions/31172802/logging-config-configuration-for-spring-boot
+System.setproperty("logging.config", "classpath: Portal-log4j2.yaml");
+Console_log_pattern
+C:/dev/synergie/app/java/jdk1.8.0_65/jre/lib/logging.properties
+
+************ Logging de java ************
+
+https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.logging.custom-log-configuration
+https://github.com/spring-projects/spring-boot/blob/v3.2.3/spring-boot-project/spring-boot/src/main/resources/org/springframework/boot/logging/java/logging-file.properties
+
+************ Avec lombok ************
+
+https://www.slf4j.org/api/org/slf4j/logger.html
+@slf4j
+Maclasse{
+	Mafonction(){
+	log.debug ("coucou");
+}}
+Log correspond au type org.slf4j.logger
 
 ============ Erreurs ============
 
@@ -231,8 +226,8 @@ La version de spring-boot utilisée dans le pom est trop récente. Elle ne fonct
 
 ************************************************
 
-SLF4J: Class path contains multiple SLF4J bindings.
-SLF4J: Found binding in [jar:file:/C:/Users/deborah.powers/.m2/repository/ch/qos/logback/logback-classic/1.2.11/logback-classic-1.2.11.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/C:/Users/deborah.powers/.m2/repository/org/apache/logging/log4j/log4j-slf4j-impl/2.17.2/log4j-slf4j-impl-2.17.2.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+Slf4j: Class path contains multiple slf4j bindings.
+Slf4j: Found binding in [jar: File:/c:/users/deborah.powers/.m2/repository/ch/qos/logback/logback-classic/1.2.11/logback-classic-1.2.11.jar !/org/slf4j/impl/staticloggerbinder.class]
+Slf4j: Found binding in [jar: File:/c:/users/deborah.powers/.m2/repository/org/apache/logging/log4j/log4j-slf4j-impl/2.17.2/log4j-slf4j-impl-2.17.2.jar !/org/slf4j/impl/staticloggerbinder.class]
+Slf4j: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+Slf4j: Actual binding is of type [ch.qos.logback.classic.util.contextselectorstaticbinder]
