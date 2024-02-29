@@ -1,6 +1,6 @@
 Sujet:	programmation
-Lien:	https://gkemayo.developpez.com/tutoriels/java/tutoriel-sur-mise-oeuvre-spring-batch-avec-spring-boot/#lv
-Auteur:	gkemayo
+Lien:	C:\dev\synergie\git\app-cdm-batch\app-cdm-batch-web\src\main\java\fr\asp\synergie\app\cdm\batch
+Auteur:	synergie
 Autlink:	o
 Date: 2024/02
 
@@ -11,8 +11,9 @@ https://spring.io/projects/spring-batch
 https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto.batch
 https://www.baeldung.com/introduction-to-spring-batch
 Tuto qui ne marche pas: https://spring.io/guides/gs/batch-processing
-Base h2 comme job repository
 j'ai fini par m'inspirer de ce qui à été fait sur cdm.
+
+je me suis inspirée de ce qui a été fait sur le projet synergie, module app-cdm-batch.
 
 
 	private List<String[]> readCsvFile(String fileName){
