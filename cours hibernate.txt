@@ -1,0 +1,10 @@
+Sujet:	programmation
+Lien:	https://www.baeldung.com/spring-boot-hibernate
+Auteur:	o
+Autlink:	o
+Date:	2024/03
+
+============ Présentation ============
+
+https://www.baeldung.com/spring-boot-hibernate
+https://www.javadevjournal.com/spring-boot/spring-boot-with-hibernate/

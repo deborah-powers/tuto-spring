@@ -9,20 +9,26 @@ import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 import model.EmployeeSrc;
 import model.EmployeeSrcList;
+import utils.DataFileProperties;
 
 @Slf4j
 @Component
 public class EmployeeReader implements ItemReader<EmployeeSrcList>{
+	// première méthode pour récupérer les données de application.properties
 	@Value("${data.folder}")
 	private String dataFolder;
 	@Value("${data.src}")
 	private String dataFileName;
+	// deuxième méthode pour récupérer les données de application.properties
+	@Autowired
+	private DataFileProperties dataFile;
 	private boolean firstTime = true;
 
 	@Override
@@ -35,7 +41,7 @@ public class EmployeeReader implements ItemReader<EmployeeSrcList>{
 		if (firstTime) {
 			firstTime = false;
 			try {
-				FileReader fileReader = new FileReader(dataFolder + fileName);
+				FileReader fileReader = new FileReader(dataFile.getSrcPath());
 				BufferedReader bufferedReader = new BufferedReader(fileReader);
 				EmployeeSrcList employees = new EmployeeSrcList();
 				String line;
@@ -44,10 +50,10 @@ public class EmployeeReader implements ItemReader<EmployeeSrcList>{
 				bufferedReader.close();
 				return employees;
 			} catch (FileNotFoundException exception) {
-				log.error("le fichier n'a pas été trouvé: " + fileName);
+				log.error("le fichier n'a pas été trouvé: " + dataFile.getSrc());
 				return null;
 			} catch (IOException exception) {
-				log.error("le fichier est illisible: " + fileName);
+				log.error("le fichier est illisible: " + dataFile.getSrc());
 				return null;
 			}
 		} else

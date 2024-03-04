@@ -1,0 +1,14 @@
+Sujet:	programmation
+Lien:	https://datascientest.com/tutoriel-docker
+Auteur:	docker
+Autlink:	o
+Date:	2024/02
+
+============ Présentation ============
+
+docker est une plate-forme de conteneurs, qui empaquette une appli et ses dépendences et permet de récupérer tous l'environnement de fonctionnement et de lancer l'appli.
+un conteneur est un espace isolé.
+
+https://www.docker.com/
+https://hub.docker.com/
+https://datascientest.com/tutoriel-docker

@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>api rh</name>
-	<description>crééer une api Spring Boot, pour l'entreprise rh</description>
+	<description>api Spring Boot pour l'entreprise rh</description>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
