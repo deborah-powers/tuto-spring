@@ -1,0 +1,27 @@
+version: '3'
+# liste des conteneurs a creer
+services:
+    db: # nom du conteneur, personnalisable
+        image: mysql:latest
+        volumes: # conserver les données, que docker ne fais pas lui-même. docker créé un base sur l'ordi hôte. il n'y a pas de partage des données entre ordi
+            - db_data:/var/lib/mysql
+        restart: always
+        environment: # un conteneur peut avoir besoin de ve
+            MYSQL_ROOT_PASSWORD: somewordpress
+            MYSQL_DATABASE: wordpress
+            MYSQL_USER: wordpress
+            MYSQL_PASSWORD: wordpress
+    wordpress:
+        depends_on: # wordpress dépend de db
+            - db
+        image: wordpress:latest
+        ports:
+            - "1407:80"
+        restart: always
+        environment:
+            WORDPRESS_DB_HOST: db:3306
+            WORDPRESS_DB_USER: wordpress
+            WORDPRESS_DB_PASSWORD: wordpress
+            WORDPRESS_DB_NAME: wordpress
+volumes:
+    db_data: {}

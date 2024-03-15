@@ -1,0 +1,121 @@
+Sujet:	programmation
+Lien:	https://openclassrooms.com/fr/courses/2035766-optimisez-votre-deploiement-en-creant-des-conteneurs-avec-docker/7539436-tirez-un-maximum-de-ce-cours
+Auteur:	o
+Autlink:	o
+Date:	2024/03
+
+============ Présentation ============
+
+https://openclassrooms.com/fr/courses/2035766-optimisez-votre-deploiement-en-creant-des-conteneurs-avec-docker/6211306-decouvrez-les-conteneurs
+https://hub.docker.com/
+Docker
+deborah.powers.dev@gmail.com
+Noisette416
+
+************ Généralités ************
+
+docker est une plate-forme de conteneurs. C'est un github pour tout un environnement entier.
+L'ancêtre est la machine virtuelle, ou vm. La vm est complètement isolée de l'ordinateur hôte, elle est la seule à utiliser les ressources (la ram) qui lui sont allouées. Elle permet d'installer n'importe quel os. Elle est lente à démarrer. Si elle n'utilise qu'une portion des ressouces allouées, personne d'autre ne peut les utiliser. On parle de virtualisation lourde.
+Un conteneur se contente d'isoler l'appli et ses dépendances, en partageant les ressources de l'hôte.
+Un conteneur permet d'unifier les environnements de travail entre équipe. Un même environnement peut être copié chez les développeur, les testeurs, la prod...
+Processus stateful: Mon travail modifie l'état de l'appli, qui est conservé quand je l'éteind et la rallume. Bdd.
+Processus stateless: L'appli est rebootée à chaque fermeture. Je reparts de zéro à chaque fois. Requête.
+
+************ Fonctionnement de docker ************
+
+docker est stateless par défaut. Attention à comment stoquer les bdd.
+Il ne permet de stoquer que des environnements linux.
+Un conteneur par appli. Pour utiliser wamp, j'ai un conteneur pour appache, un pour php, un pour mysql... Un conteneur peut contenir plusieurs images.
+Image: Empreinte, copie pliée de mon travail. Créer une image utilise des caches.
+Layer: Une image est composée de couches (layers). Chaque layer correspond à une commande docker. Ces commandes peuvent installer un outil, etc.
+Registry: Application pour partager mon travail, son image.
+Réseau:
+
+============ Mon premier conteneur ============
+
+Dans ma console: docker run hello-world
+docker cherche si j'ai une image hello-world en local ou sur le registory docker distant.
+docker run -d -p 8080:80 nginx
+docker créé un serveur (nginx) au port (-p) 8080. 80 est le port propre du conteneur.
+Localhost:8080
+docker run xxx: Ouvrir un conteneur puis le fermer, comme un script.
+docker run -d xxx: Ouvrir un conteneur puis le laisser ouver, comme un serveur. La console semble avoire fermé docker, mais ce n'est pas le cas.
+docker run --detach xxx: Idem.
+docker run -it: Ouvrir un conteneur de façon interractive
+docker exec -it id_retourné_lors_du_docker_run bash: Entrer dans mon conteneur.
+Id est le long code sur la dernière ligne du run. Exit permet de sortir du conteneur.
+docker stop id_retourné_lors_du_docker_run: Arrêter mon conteneur.
+docker pull xxx: Récupérer le contenu d'un conteneur sans le lancer.
+docker ps: Voir l'ensemble des conteneurs tournant sur mon ordi.
+docker images -a: Voir l'ensemble des images tournant sur mon ordi.
+docker system prune: Effacer tous les fichiers créés par les tests et les lancements.
+docker build -t nom-image .
+
+************ Exemple, la puissance de cat ************
+
+Lancer docker desktop
+Dans la console windows
+docker run hello-world
+docker run -d -p 8080:80 nginx
+docker exec -it fde14c69cb6fe8114e0daa8b7886e993b0834568ba631bf06b3df096baf97db4 bash
+cd /usr/share/nginx/html
+Cat index.html affiche le contenu du fichier
+Cat index.html > copie.html
+Remplacer le texte de mon fichier
+Cat << fin >> index.html
+<p>coucou !</p>
+<p>je suis un texte</p>
+Fin
+Exit
+docker stop fde14c69cb6fe8114e0daa8b7886e993b0834568ba631bf06b3df096baf97db4
+
+============ Mon premier dockerfile ============
+
+Projet c:/users/deborah.powers	uto-docker
+Le dockerfile est un fichier de configuration, comme package.json dans angular et autres.
+.dockerignore: Equivalent de.gitignore avec git. Laisser les fichiers et dossiers ne m'intéressant pas.
+docker build -t tuto-docker.
+-t donne un titre à l'image
+docker run -d -p 1407: 1407 tuto-docker
+docker stop e0953715bb61d26c9471bbf909c55d8047df2c018593b70e07136b169f122537
+docker system prune
+http://localhost:1407/
+cmd xxx: Si la commande est un serveur, le conteneur reste ouvert. Sinon, il se referme à la fin du run.
+
+============ Créer une image sur le docker hub ============
+
+# lien entre l'image locale et le hub
+docker tag tuto:latest deborahpowersdev/tuto:latest
+docker push tuto:latest
+Si mon image / build n'a pas de nom, j'utilise l'id récupéré lors du docker build.
+# rechercher une image existante via la ligne de commande
+docker search xxx
+
+============ docker compose, pour un site ============
+
+https://openclassrooms.com/fr/courses/2035766-optimisez-votre-deploiement-en-creant-des-conteneurs-avec-docker/6211624-decouvrez-et-installez-docker-compose
+Compose permet d'utiliser plusieurs conteneurs comme un ensemble de services.
+Sur windows, il est installé d'office avec docker.
+Stack: Groupe de conteneurs lancés ensemble par un fichier docker-compose.yml
+docker-compose pull
+docker-compose up: Lancer les conteneurs et les refermer à la fin de l'action, pour les scripts simples.
+docker-compose up -d: Lancer les conteneurs en les laissant ouverts, comme pour un serveur.
+docker-compose ps: Etat de la statck.
+docker-compose logs -f --tail 5
+docker-compose stop: Arrête la stack. Il faut supprimer manuellement les fichiers créés.
+docker-compose down: Supprimer les fichiers.
+docker-compose config: Vérifier la structure du fichier.
+Dans docker-compose.yaml
+Service / db / volumes: Conserver les données, que docker ne fais pas lui-même. docker créé un base sur l'ordi hôte. Il n'y a pas de partage des données entre ordi.
+Db_data:/var/lib/mysql: Volumes reconnu comme la bdd. Equivalent à:/data/mysql:/var/lib/mysql
+Url: http://localhost:1407/wp-admin/install.php
+
+============ Erreurs ============
+
+Lors du build, docker build -t tuto-docker.
+Erreur lors du téléchargement d'un url sur https://deb.debian.org/debian/dists/...
+Dans mon dockerfile, j'utilise une version de debian, l'environnement, qui n'est plus disponible.
+Aller à la racine
+https://deb.debian.org/debian/dists/
+Repérer la version de debian qui m'interésse
+from debian: Xx

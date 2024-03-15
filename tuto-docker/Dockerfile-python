@@ -1,0 +1,12 @@
+# image de base, contenant l'environnement
+FROM python:3.8-alpine3.14
+WORKDIR /tuto-docker
+COPY test-serveur.py ./
+COPY test-html.html ./
+# repertoire a partager avec l'hote, ici logs
+VOLUME /tuto-docker/logs
+# port de mon serveur
+EXPOSE 1407
+# toujours en dernier, l'action finale à réaliser
+# CMD python3 -m http.server 1407
+CMD [ "python3", "test-serveur.py" ]
