@@ -1,0 +1,47 @@
+body {
+	background-color: wheat;
+	color: teal;
+	font-size: 1em;
+	margin: 1em;
+	text-align: center;
+}
+* {
+	color: inherit;
+	font-size: inherit;
+	box-sizing: border-box;
+	padding: 0.5em;
+	margin: 0.5em 0;
+	font-family: inherit;
+	font-style: normal;
+	font-weight: normal;
+	text-decoration: none;
+	outline: none;
+}
+*:first-letter { text-transform: uppercase; }
+h1 {
+	font-size: 1.5em;
+	background-color: teal;
+	color: wheat;
+}
+p { text-align: right; }
+p#retour{
+	color: purple;
+	font-size: 1.5em;
+}
+button {
+	background-color: teal;
+	color: wheat;
+	border: none;
+	width: 49%;
+}
+textarea, input {
+	width: 100%;
+	border: 4px double teal;
+	background-color: wheat;
+	text-align: left;
+}
+::placeholder {
+	color: teal;
+	opacity: 0.6;
+}
+textarea { height: 6em; }
