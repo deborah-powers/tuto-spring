@@ -4,6 +4,8 @@ import os
 import codecs
 import json
 from datetime import datetime
+# template utilisé dans oldEntry.js
+dateTemplate = "%Y-%m-%d-%H-%M-%S"
 
 letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZaàâbcdeéêèëfghiîïjkmlmnoôpqrstuûvwxyz0123456789-\xe7\xc7'
 uppercaseLetters = ('aA', 'àA', 'bB', 'cC', '\xe7\xc7', 'dD', 'eE', 'éE', 'èE', 'êE', 'ëE', 'fF', 'gG', 'hH', 'iI', 'îI', 'ïI', 'jJ', 'kK', 'lL', 'mM', 'nN', 'oO', '\xf4\xe4', 'pP', 'qQ', 'rR', 'sS', 'tT', 'uU', 'vV', 'wW', 'xX', 'yY', 'zZ')
@@ -89,10 +91,10 @@ def cleanText (text):
 
 def setDate():
 	today = datetime.now()
-	return today.strftime("%Y-%m-%d-%H-%M-%S")
+	return today.strftime(dateTemplate)
 
 class FileData():
-	def __init__ (self, file =None):
+	def __init__ (self):
 		self.path = 'journal.json'
 		self.data =[]
 
@@ -124,9 +126,27 @@ class FileData():
 		textBrut.write (texte.encode ('utf-8'))
 		textBrut.close()
 
-	def append (self, data):
+	def findId (self, dateStr):
+		index =-1;
+		rentry = range (len (self.data))
+		for e in rentry:
+			if self.data[e]['date'] == dateStr: index =e
+		return index
+
+	def appendNewEntry (self, data):
 		data['date'] = setDate()
 		data['titre'] = cleanText (data['titre'])
 		data['texte'] = cleanText (data['texte'])
 		self.data.append (data)
 
+	def append (self, data):
+		if 'date' in data.keys():
+			# ancienne entrée à modifier
+			index = self.findId (data['date'])
+			print ('id', index, self.data)
+			if index ==-1: self.appendNewEntry (data)
+			else:
+				self.data [index] ['titre'] = data['titre']
+				self.data [index] ['texte'] = data['texte']
+		# nouvelle entrée
+		else: self.appendNewEntry (data)

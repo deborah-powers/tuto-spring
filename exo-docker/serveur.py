@@ -28,21 +28,20 @@ class BackEndCors (SimpleHTTPRequestHandler):
 
 	def do_GET (self):
 		self.send_response (200)
-		if self.path == '/new': self.path = 'nouveau.html'
-		elif self.path == '/old': self.path = 'detail.html'
-		elif self.path == '/': self.path = 'journal.html'
+		if self.path == '/': self.path = 'detail.html'
 		elif self.path == '/all': self.path = 'journal.html'
 		SimpleHTTPRequestHandler.do_GET (self)
 
 	def do_POST (self):
-		print (self.path)
 		self.send_response (200)
 		self.end_headers()
 		postBody = self.readBody()
 		fileData.read()
-		if self.path == '/new': fileData.append (postBody)
-		fileData.write()
-		self.writeBody ('ok')
+		if self.path == '/':
+			fileData.append (postBody)
+			fileData.write()
+			self.writeBody ('ok')
+		else: self.writeBody ('mauvaise url: '+ self.path)
 
 test (BackEndCors, HTTPServer, port=1407)
 

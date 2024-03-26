@@ -1,8 +1,10 @@
 FROM python:3.8-alpine3.14
 WORKDIR /exo-docker
-COPY index.html ./
-COPY action.js ./
 COPY style.css ./
+COPY journal.js ./
+COPY detail.js ./
+COPY journal.html ./
+COPY detail.html ./
 COPY toJson.py ./
 COPY serveur.py ./
 # repertoire a partager avec l'hote, ici logs
